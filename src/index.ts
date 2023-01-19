@@ -1,3 +1,3 @@
-import App from "./App";
+import InfiniteScrollAction from './InfiniteScrollAction'
 
-export { App };
+export default InfiniteScrollAction

@@ -6,40 +6,97 @@
 ####React js
 
 ```javascript
-//Import InfiniteScrollAction components first
+import InfiniteScrollAction from "infinite-scroll-action";
+import { useEffect, useState } from "react";
 
-export default App(){
-	const callback=()=>{
-	   console.log("This is called !")
-	}
-	return(
-	  <InfiniteScrollAction
-			  //action callback function bottom from 150px up.
-			  bottomToActionPosition={150}
-			  //call to more data length ! if this conponent use to api call.
-			  getDataLength={product.length}
-			  //This function will act on the scrolling position 150px above the bottom
-			  callback={callback}>
+function App() {
+  const [product, setProduct] = useState([]);
+  const [limit, setLimit] = useState(20);
+  const [loading, setLoading] = useState(false);
 
-			  <div className="row gy-3">
-				  {product.map((item, index) => {
-					  return <Product item={item} key={index} />;
-				  })}
-			  </div>
-			  {
-				  product&&isLoading?
-					  <div
-						  style={{
-							  display: "flex",
-							  width: "100%",
-							  justifyContent: "center",
-						  }}
-					  >
-						  <Spinner />
-					  </div>:null
-			  }
-		  </InfiniteScrollAction>
-	  )}
+  useEffect(() => {
+    const apiCall = async () => {
+      setLoading(true);
+      const res = await fetch(
+        `https://dummyjson.com/products?limit=${limit}&skip=0`
+      );
+      const data = await res.json();
+      setProduct(data.products);
+      setLoading(false);
+    };
+    apiCall();
+  }, [limit]);
+
+  const callback = () => {
+    setLimit(limit + 10);
+  };
+
+  return (
+    <div className="App">
+      <InfiniteScrollAction
+        // If use this API call to past this realtime get data length else don't need
+        ifApiCallPastChangeableDataLength={limit}
+        //Function call from bottom to top pixel position
+        bottomToActionPosition={20}
+        callback={callback}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {!product.length && loading ? (
+            <div
+              style={{
+                height: "100vh",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h4>First time Loading........</h4>
+            </div>
+          ) : (
+            product.map((item) => (
+              <div key={item.id} style={{ width: "20%" }}>
+                <div
+                  style={{
+                    background: "tomato",
+                    height: "200px",
+                    margin: "5px",
+                  }}
+                >
+                  <h4>{item.title}</h4>
+                  <h4>{item.id}</h4>
+                </div>
+              </div>
+            ))
+          )}
+
+          {/* GET More Data -scroll- Loading  */}
+          {product.length && loading ? (
+            <div
+              style={{
+                height: "100px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h4>Get more -- Loading........</h4>
+            </div>
+          ) : null}
+        </div>
+      </InfiniteScrollAction>
+    </div>
+  );
+}
+
+export default App;
+
 ```
 
 ###Props
@@ -48,6 +105,6 @@ export default App(){
 | ---------------------- | --------- | -------- |
 | callback               | function  | yes      |
 | bottomToActionPosition | number    | no       |
-| getDataLength          | number    | yes      |
+| ifApiCallPastChangeableDataLength          | number    | no      |
 
 ###End>>=====@=====<<End

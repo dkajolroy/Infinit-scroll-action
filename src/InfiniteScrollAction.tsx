@@ -3,10 +3,10 @@ interface Props {
   children: React.ReactNode
   callback: () => void
   bottomToActionPosition?: number
-  getDataLength?: number
+  ifApiCallPastChangeableDataLength?: number
 }
 const InfiniteScrollAction = (props: Props) => {
-  const { callback, getDataLength, bottomToActionPosition } = props
+  const { callback, ifApiCallPastChangeableDataLength, bottomToActionPosition } = props
   const minus = bottomToActionPosition || 5
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -15,7 +15,7 @@ const InfiniteScrollAction = (props: Props) => {
         callback()
       }
     })
-  }, [getDataLength])
+  }, [ifApiCallPastChangeableDataLength])
 
   return <React.Fragment>{props.children}</React.Fragment>
 }

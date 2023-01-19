@@ -1,6 +1,6 @@
 {
   "name": "infinite-scroll-action",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "This package use to call function from specific position your web",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -10,7 +10,7 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run prettier && npm run lint",
+    "prepublishOnly": "npm test",
     "test": "jest --config jestconfig.json"
   },
   "keywords": [
@@ -49,6 +49,7 @@
   },
   "files": [
     "dist",
+    "src",
     "LICENSE",
     "README.md"
   ]

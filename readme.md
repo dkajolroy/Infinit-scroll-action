@@ -6,7 +6,8 @@
 ### Installation
 
 `$npm i infinite-scroll-action`
-####React js
+
+### React js
 
 ```javascript
 import InfiniteScrollAction from 'infinite-scroll-action'

@@ -3,6 +3,9 @@
 - Scroll to loadmore api call;
 - Scroll to action function specific position your web ;
 
+### Installation
+
+`$npm i infinite-scroll-action`
 ####React js
 
 ```javascript

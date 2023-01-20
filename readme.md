@@ -5,7 +5,7 @@
 
 ### Installation
 
-`$npm i infinite-scroll-action`
+`npm i infinite-scroll-action`
 
 ### React js
 
